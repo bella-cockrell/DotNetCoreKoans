@@ -10,7 +10,7 @@ namespace DotNetCoreKoans.Koans
     {
         /*
         IDisposable is an interface that contains only 1 method, Dispose().
-        It should be implemented by types that use umanagmed resources
+        It should be implemented by types that use umanagmed resources //unmanaged???
         e.g. streams, files, etc. so that memory can be reclaimed by the
         runtime's garbage collector.
 
@@ -35,7 +35,7 @@ namespace DotNetCoreKoans.Koans
             // get file contents in readable format
             var result = reader.ReadToEnd();
 
-            Assert.Equal(result, FILL_ME_IN);
+            Assert.Equal("The quick brown fox jumped...", result);
         }
 
         [Step(2)]
@@ -66,7 +66,7 @@ namespace DotNetCoreKoans.Koans
                 reader.Dispose();
             }
 
-            Assert.Equal(result, FILL_ME_IN);
+            Assert.Equal("The quick brown fox jumped...", result);
         }
     }
 }
