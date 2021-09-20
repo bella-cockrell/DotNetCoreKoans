@@ -17,13 +17,13 @@ namespace DotNetCoreKoans.Koans
             // almost every character throughout the world.
 
             var str = "﻿ü";
-            Assert.Equal("﻿ü", FILL_ME_IN);
+            Assert.Equal("﻿ü", str);
         }
 
         [Step(2)]
         public void TreatStringsAsStrings()
         {
-            // When utilizing string searches / comparasions, rather than
+            // When utilizing string searches / comparisons, rather than
             // treating the string as a collection of Char objects, it is 
             // better to treat each Char as a string. This is because 
             // a single character may consist of 1 or more Char objects.
@@ -34,23 +34,25 @@ namespace DotNetCoreKoans.Koans
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("de-DE");
 
             string composite = "\u0075\u0308"; // ﻿ü
-            Assert.Equal(0, composite.IndexOf('\u00fc'));
+            Assert.Equal(-1, composite.IndexOf('\u00fc')); //IndexOf return -1 if not found
 
         }
 
         [Step(3)]
         public void TestingStringsForEquality()
         {
-            // Non-linguistic comparasions should always be Ordinal rather than
+            // Non-linguistic comparisons should always be Ordinal rather than
             // culture specific. For passwords, you should use 
             // StringComparison.Ordinal and for filesystem access, you should use
             // StringComparison.OrdinalIgnoreCase
+
+            //e.g the strings "encyclopædia" and "encyclopedia" are considered equivalent in the en-US culture but not in the Sami, Northern (Sweden) culture
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("tr-TR");
 
             string uri = @"file:\\c:\users\uname\Desktop\test.txt";
 
-            Assert.True(uri.StartsWith("FILE", true, CultureInfo.CurrentCulture));
+            Assert.True(uri.StartsWith("FILE", StringComparison.OrdinalIgnoreCase));
 
         }
 
@@ -68,15 +70,15 @@ namespace DotNetCoreKoans.Koans
 
             string[] expectedOrder = { "able", "Æble", "ångström", "apple", "Visual Studio", "Windows" };
 
-            Array.Sort(FILL_ME_IN);
+            Array.Sort(values);
 
             Assert.Equal(expectedOrder, values);
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("sv-SE");
 
-            string[] expectedSVOrder = { "able", "Æble", "apple", "Windows", "Visual Studio", "ångström" };
+            string[] expectedSVOrder = { "able", "apple", "Visual Studio", "Windows", "ångström", "Æble" }; //the order of these were wrong :(
 
-            Array.Sort(FILL_ME_IN);
+            Array.Sort(values);
 
             Assert.Equal(expectedSVOrder, values);
 
